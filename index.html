@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+<html lang="en-us">
+
+	<head>
+		<meta charset="utf-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<script src="./vue-min.js"></script>
+		<script src="./data.js"></script>
+		<link href="./w3.css" rel="stylesheet" />
+		<title>Game Recommendations</title>
+	</head>
+
+	<body>
+		<nav class="w3-bar w3-black">
+			<!-- Link back to main page -->
+			<a class="w3-bar-item w3-button" href="../">Main</a>
+			
+		</nav>
+	
+		<header class="w3-container">
+			<h1>Alex's Game Recommendation</h1>
+		</header>
+
+		<main id="app" class="w3-container">
+			<table class="w3-table w3-bordered w3-hoverable w3-table-striped">
+				<thead>
+					<tr>
+						<td>Title</td>
+						<td>Score</td>
+						<td>Comment</td>
+					</tr>
+				</thead>
+				<tbody>
+					<tr v-for="game in games" v-on:click="displayModal(game.ID)">
+						<td>{{game.Title}}</td>
+						<td>{{game.Score}}</td>
+						<td>{{game.Comment}}</td>
+					</tr>
+				</tbody>
+			</table>
+
+			<div class="w3-modal" v-bind:style="{display : modalDisplayMode}">
+				<div class="w3-modal-content">
+
+					<div class="w3-container">
+						<h2>Game Info</h2>
+
+						<div class="w3-pink w3-container">
+							<h5>Title</h5>
+							<p>{{selectedGame.Title}}</p>
+						</div>
+						<div class="w3-green w3-container">
+							<h5>Developer</h5>
+							<p>{{selectedGame.Developer}}</p>
+						</div>
+						<div class="w3-blue w3-container">
+							<h5>Publisher</h5>
+							<p>{{selectedGame.Publisher}}</p>
+						</div>
+						<div class="w3-orange w3-container">
+							<h5>Score</h5>
+							<p>{{selectedGame.Score}}</p>
+						</div>
+						<div class="w3-khaki w3-container">
+							<h5>Comment</h5>
+							<p>{{selectedGame.Comment}}</p>
+						</div>
+
+						<div class="w3-panel">
+							<button class="w3-button w3-green" v-on:click="toggleModal">
+								Close
+							</button>
+						</div>
+					</div>
+				</div>
+			</div>
+					
+		</main>
+		<script src="app.js"></script>
+	</body>
+
+</html>
