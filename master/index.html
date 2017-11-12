@@ -1,1 +1,76 @@
+<!DOCTYPE html>
+<html lang="en-us">
+	<head>
+		<meta charset="UTF-8"/>
+		<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+		<title>Master Page</title>
+		<script src="../vue-min.js"></script>
+		<link href="../w3.css" rel="stylesheet" />
+	</head>
+	<body>
+		<nav class="w3-panel">
+			<a href="../index.html" class="w3-button w3-black">User View</a>
+		</nav>
+ 
+		<header class="w3-panel">
+			<h1>Game Recommendation Manager</h1>
+		</header>
+		<main id="app">
+			<!-- Grid of data -->
+			<div v-if="loggedIn"  class="w3-panel">
+				<button class="w3-button w3-indigo" v-on:click="newGame" > Add Game</button>
+				<button class="w3-button w3-black" v-on:click="updateClient">Update Client</button>
+				<h5>{{statusText}}</h5>
+				<div  v-for="game in games" v-on:click="editGame(game.ID)" style="margin-bottom: 10px;">
+			   		<div class="w3-row">
+						<div class="w3-col w3-orange w3-container"><p>{{game.Title}}</p></div>
+			   		</div>
+			   		<div class="w3-row">
+						<div class="w3-col s5 w3-red w3-container"><p>{{game.Developer}}</p></div>
+						<div class="w3-col s5 w3-green w3-container"><p>{{game.Publisher}}</p></div>
+						<div class="w3-col s2 w3-blue w3-container"><p>{{game.Score}}</p></div>
+			   		</div>
+			   		<div class="w3-row">
+						<div class="w3-col w3-pink w3-container"><p>{{game.Comment}}</p></div>
+			   		</div>
+				</div>
+			</div>
+			<div v-if="!loggedIn" class="w3-panel">
+				<p>Please log in to continue. Unauthorized access is prohibited</p>
+				<input class="w3-input" v-model="loginInfo.Username" placeholder="User Name"/>
+				<input class="w3-input" v-model="loginInfo.Password" type="password" placeholder="Password"/>
+				<button class="w3-button w3-green" v-on:click="logIn">Log In</button>
+				<p>{{statusText}}</p>
+			</div>
+			<div class="w3-modal" v-bind:style="{display: modalDisplay}">
+				<div class="w3-modal-content">
+					<div class="w3-container">
+						<h2>Game Modification </h2>
+					</div>
+					
+					<div class="w3-container">
+						<input class="w3-input" v-model="selectedGame.Title" placeholder="Edit Title"/>
+						<input class="w3-input" v-model="selectedGame.Publisher" placeholder="Edit Publisher"/>
+						<input class="w3-input" v-model="selectedGame.Developer" placeholder="Edit Developer"/>
+						<input class="w3-input" v-model="selectedGame.Comment" placeholder="Edit Comment"/>
+						<input class="w3-input" v-model="selectedGame.Score" placeholder="Edit Score" input="number" />
+					</div>
+					<div class="w3-container w3-panel">
+						<div class="w3-row">
+						
+							<button v-on:click="putOrPost" class="w3-col s4 w3-button w3-green">Save</button>
+							<button v-if="selectedGame.ID != 0" v-on:click="deleteGame" class="w3-col s4 w3-button w3-black">Delete</button>
+							<button v-on:click="cancel" class="w3-col s4 w3-button w3-orange">Cancel</button>
+						
+						</div>
+					</div>
+					<div class="w3-panel">
+					</div>
+				</div>
+			</div>
+		</main>
+		<script src="./controller.js"></script>
+	</body>
+
+</html>
 
